@@ -1,0 +1,37 @@
+server:
+  port: 0
+spring:
+  application:
+    name: flight-ws
+  cloud:
+    discovery:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/hr
+    username: root
+    password: 8520
+  jpa:
+    hibernate:
+      ddl-auto: update
+  boot:
+    admin:
+      client:
+        url:
+        - http://localhost:5000
+  zipkin:
+    base-url: http://localhost:9411
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - '*'
